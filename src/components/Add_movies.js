@@ -4,16 +4,17 @@ import Movie_card from './Movie_card';
 
 const Add_movie = (props) => {
     const [show, setShow] = useState(false);
-    const [movies, setMovies] = useState(props.data);
+    //const [movies, setMovies] = useState(props.data);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
 
-    const add = () => {
-        setMovies([
-            ...movies,
+    const add = (e) => {
+        e.preventDefault()
+        props.setData((prevState) => [
+            ...prevState,
             {
-                id: movies.length + 1,
+                id: prevState.length + 1,
                 title: title,
                 description: description,
                 image: "https://picsum.photos/200/200"
@@ -55,7 +56,7 @@ const Add_movie = (props) => {
                             <Form.Label>Description</Form.Label>
                             <Form.Control value={description} onChange={(e) => setDescription(e.target.value)} as="textarea" rows="3" />
                         </Form.Group>
-                        <Button onClick={() => { add() }} variant="primary" type="submit">
+                        <Button onClick={(e) => { add(e) }} variant="primary" type="submit">
                             Submit
                         </Button>
                     </Form>
